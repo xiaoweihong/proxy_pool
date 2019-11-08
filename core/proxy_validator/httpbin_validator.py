@@ -89,7 +89,7 @@ def __check_http_proxies(proxies, is_http=True):
         else:
             return False, nick_type, speed
     except Exception as e:
-        logger.error("链接失败")
+        logger.error("{} 链接失败".format(proxies['http']))
         return False, nick_type, speed
 
 

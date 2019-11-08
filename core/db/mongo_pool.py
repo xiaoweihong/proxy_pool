@@ -169,4 +169,4 @@ if __name__ == '__main__':
     # s = MongoPool().get_random_proxy(protocl="https")
     # print(s)
 
-    MongoPool().disable_domain("192.168.100.118", "baidus.com")
+    MongoPool().disable_domain("192.168.100.118", "baidu.com")
