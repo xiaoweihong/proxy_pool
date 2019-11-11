@@ -7,6 +7,7 @@
 # @Software: PyCharm
 from utils.log import logger
 from utils.http import get_user_agent
+from core.db.mongo_pool import MongoPool
 from lxml import etree
 import requests
 from core.proxy_validator.httpbin_validator import check_proxy
@@ -27,7 +28,9 @@ for tr in trs:
         ipinfo['port'] = port
 
         proxy = check_proxy(Proxy(ip=ip, port=port))
-        print(proxy)
-        logger.info(proxy)
-        iplist.append(ipinfo)
+        if proxy.speed != -1:
+            # print(proxy)
+            logger.info(proxy)
+            MongoPool().insert_one(proxy)
+        # iplist.append(ipinfo)
 # print(iplist)

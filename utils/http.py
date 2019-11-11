@@ -57,7 +57,7 @@ def get_user_agent():
         'User-Agent': random.choice(user_agent),
         'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6,zh-TW;q=0.5',
         'Accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
-        'Accept-Encoding': 'gzip, deflate, br'
+        'Accept-Encoding': 'gzip, deflate'
     }
     return headers
 
