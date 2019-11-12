@@ -29,3 +29,11 @@ PROXY_SPIDERS = {
     'core.proxy_spider.proxy_spiders.ProxyListPlusProxy',
     'core.proxy_spider.proxy_spiders.XiCiSpider',
 }
+# 定时任务运行间隔
+RUN_SPIDERS_INTERVAL = 2
+
+# 检测代理异步任务的数量
+TEST_PROXY_ASYNC_COUNT = 10
+
+# 检测代理定时任务运行间隔
+TEST_PROXY_INTERVAL = 2
