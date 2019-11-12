@@ -5,32 +5,29 @@
 # @Site : 
 # @File : main.py
 # @Software: PyCharm
-from utils.log import logger
-from utils.http import get_user_agent
-from core.db.mongo_pool import MongoPool
-from lxml import etree
-import requests
-from core.proxy_validator.httpbin_validator import check_proxy
-from domain import Proxy
 
-content = requests.get("https://www.xicidaili.com/nt/1", headers=get_user_agent()).text
-html = etree.HTML(content)
-trs = html.xpath("//tr")
-iplist = list()
-for tr in trs:
-    ipinfo = dict()
-    tds = tr.xpath("./td")
-    if tds:
-        ip = tds[1].xpath("./text()")[0]
-        port = tds[2].xpath("./text()")[0]
-        # print(ip, port)
-        ipinfo['ip'] = ip
-        ipinfo['port'] = port
+from multiprocessing import Process
 
-        proxy = check_proxy(Proxy(ip=ip, port=port))
-        if proxy.speed != -1:
-            # print(proxy)
-            logger.info(proxy)
-            MongoPool().insert_one(proxy)
-        # iplist.append(ipinfo)
-# print(iplist)
+from core.proxy_spider.run_spiders import RunSpider
+from core.proxy_test import ProxyTester
+from core.proxy_api import ProxyApi
+
+
+def run():
+    # 定义一个列表用于存储要启动的进程
+    process_list = []
+    # 创建启动爬虫
+    process_list.append(Process(target=RunSpider.start))
+    process_list.append(Process(target=ProxyTester.start))
+    process_list.append(Process(target=ProxyApi.start))
+
+    for process in process_list:
+        process.daemon = True
+        process.start()
+
+    for process in process_list:
+        process.join()
+
+
+if __name__ == '__main__':
+    run()

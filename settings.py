@@ -37,3 +37,6 @@ TEST_PROXY_ASYNC_COUNT = 10
 
 # 检测代理定时任务运行间隔
 TEST_PROXY_INTERVAL = 2
+
+# 获取的代理ip最大数量，值越小可用性越高
+PROXIES_MAX_COUNT = 50
